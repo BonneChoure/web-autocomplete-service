@@ -1,0 +1,17 @@
+[project]
+name = "web-autocomplete-service"
+version = "0.1.0"
+description = "Small autocomplete web service"
+readme = "README.md"
+authors = [
+    { name = "BonneChoure", email = "nathan.progerard@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+web-autocomplete-service = "web_autocomplete_service:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
