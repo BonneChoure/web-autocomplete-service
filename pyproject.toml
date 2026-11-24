@@ -7,7 +7,9 @@ authors = [
     { name = "BonneChoure", email = "nathan.progerard@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "fastapi>=0.165.0",
+]
 
 [project.scripts]
 web-autocomplete-service = "web_autocomplete_service:main"
