@@ -14,4 +14,4 @@ async def autocomplete(
     trie: Annotated[Trie, Depends(get_trie)],
     query: str = Query(..., min_length=1, max_length=100)
     ):
-    return await get_autocomplete_terms(trie, query, settings)
+    return await get_autocomplete_terms(trie, query)

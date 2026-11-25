@@ -8,6 +8,6 @@ def load_trie(trie: Trie, input_path:Path):
         for line in input_file:
             if line.strip().isalpha(): 
                 word = normalize(line)
-                trie.insert(line)
+                trie.insert(word)
             else:
                 continue

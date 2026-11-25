@@ -1,9 +1,5 @@
 from dataclasses import dataclass, field
 
-from web_autocomplete_service.config import get_settings
-
-settings = get_settings()
-
 @dataclass(slots=True)
 class TrieNode:
     children: dict[TrieNode] = field(default_factory=dict)
@@ -24,7 +20,7 @@ class Trie:
             node = child
         node.is_leaf = True
     
-    def search(self, prefix: str, limit: int = settings.autocomplete_terms_limit) -> list[str]:
+    def search(self, prefix: str, limit: int) -> list[str]:
         """Search the closest terms to the given prefix"""
         
         # Looking for the prefix first
