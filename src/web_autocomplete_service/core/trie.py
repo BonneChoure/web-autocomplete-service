@@ -35,7 +35,7 @@ class Trie:
         self._retrieve(node, prefix, limit, suggestions)
         return suggestions
 
-    def _retrieve(self, node: TrieNode, path: str, limit: int, suggestions: list[str]):
+    def _retrieve(self, node: TrieNode, path: str, limit: int, suggestions: list[str]) -> None:
         """
         Function used recursively to find first alphabetically sorted terms starting from a node
         """
