@@ -2,8 +2,8 @@ ARG PYTHON_VERSION=3.14
 
 # ---- build stage ----
 
-FROM python-${PYTHON_VERSION}-slim AS builder
-COPY --from=ghcr.io/astral?-sh/uv:0.12.5 /uv /bin/uv
+FROM python:${PYTHON_VERSION}-slim AS builder
+COPY --from=ghcr.io/astral-sh/uv:0.13.10 /uv /bin/uv
 
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
