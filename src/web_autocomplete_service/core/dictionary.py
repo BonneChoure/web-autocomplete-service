@@ -1,4 +1,4 @@
-from functools import Path
+from pathlib import Path
 
 from web_autocomplete_service.core.trie import Trie
 from web_autocomplete_service.core.normalization import normalize
