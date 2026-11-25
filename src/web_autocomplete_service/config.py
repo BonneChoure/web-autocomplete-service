@@ -1,15 +1,16 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings,SettingsConfigDict
 from functools import lru_cache
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_prefix="AUTOCOMPLETE_", env_file=".env")
     # App
     app_name: str = "Web Autocomplete Service"
     debug: bool = False
 
-    # Data
+    # Data - default path
     input_dictionary_path: Path = BASE_DIR / "data" / "dictionary.txt"
 
     # Autocomplete service
