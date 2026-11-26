@@ -16,6 +16,9 @@ class Settings(BaseSettings):
     # Autocomplete service
     autocomplete_terms_limit: int = 4
 
+    # Router 
+    max_query_length: int = 100
+
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
