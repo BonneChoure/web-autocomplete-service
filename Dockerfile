@@ -16,7 +16,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-install-project --no-dev
 
-COPY pyproject.toml uv.lock ./
+COPY pyproject.toml uv.lock README.md ./
 COPY src ./src
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev --no-editable
@@ -32,7 +32,7 @@ COPY --chown=app:app data ./data
 
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
-    AUTOCOMPLETE_INPUT_DICTIONARY_PATH=/app/data/assembled_dictionary.txt
+    AUTOCOMPLETE_INPUT_DICTIONARY_PATH=/app/data/dictionary.txt
 
 USER app
 EXPOSE 8000

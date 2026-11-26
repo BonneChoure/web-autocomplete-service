@@ -17,5 +17,5 @@ dependencies = [
 web-autocomplete-service = "web_autocomplete_service:main"
 
 [build-system]
-requires = ["uv_build>=0.12.5,<0.13.0"]
+requires = ["uv_build>=0.13.10,<0.14"]
 build-backend = "uv_build"
