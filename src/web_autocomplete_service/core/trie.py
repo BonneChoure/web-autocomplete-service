@@ -4,11 +4,13 @@ from dataclasses import dataclass, field
 class TrieNode:
     children: dict[TrieNode] = field(default_factory=dict)
     is_leaf: bool = False
+    sorted: bool = True
 
 
 class Trie: 
     def __init__(self):
         self.root = TrieNode()
+        self._unsorted_nodes: list[TrieNode] = []
 
     def insert(self, word: str) -> None:
         """Insert a word into the Trie"""
@@ -16,12 +18,19 @@ class Trie:
         for letter in word:
             child = node.children.get(letter)
             if child is None:
-                child = node.children[letter] = TrieNode()
+                if node.sorted and node.children and letter < next(reversed(node.children)):
+                    node.sorted = False
+                    self._unsorted_nodes.append(node)
+                child = TrieNode()
+                node.children[letter] = child
             node = child
         node.is_leaf = True
     
     def search(self, prefix: str, limit: int) -> list[str]:
         """Search the closest terms to the given prefix"""
+        # Sort the Trie if needed
+        if self._unsorted_nodes:
+            self._sort()
         
         # Looking for the prefix first
         node = self.root
@@ -37,7 +46,7 @@ class Trie:
 
     def _retrieve(self, node: TrieNode, path: str, limit: int, suggestions: list[str]) -> None:
         """
-        Function used recursively to find first alphabetically sorted terms starting from a node
+        Function used recursively to find first terms starting from a node
         """
         if len(suggestions) > limit:
             return
@@ -45,8 +54,13 @@ class Trie:
         if node.is_leaf:
             suggestions.append(path)
         
-        for childCharacter in sorted(node.children):
+        for childCharacter in (node.children):
             if len(suggestions) >= limit:
                 return
             self._retrieve(node.children[childCharacter], path + childCharacter, limit, suggestions)
 
+    def _sort(self):
+        for node in self._unsorted_nodes:
+            node.children = dict(sorted(node.children.items()))
+            node.sorted = True
+        self._unsorted_nodes.clear()
