@@ -6,6 +6,6 @@ settings = get_settings()
 
 def get_autocomplete_terms(trie: Trie, prefix:str, limit: int = settings.autocomplete_terms_limit) -> list[str]:
     normalized_prefix = normalize(prefix)
-    if normalized_prefix is None:
+    if normalized_prefix is None or not normalized_prefix:
         return []
     return trie.search(normalized_prefix, limit)
