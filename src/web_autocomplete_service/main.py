@@ -10,8 +10,9 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Called at start-up"""
     app.state.trie = load_trie(RadixTrie(), settings.input_dictionary_path)
-    yield
+    yield # let app run
 
 app = FastAPI(
     title=settings.app_name,

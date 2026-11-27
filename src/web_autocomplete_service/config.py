@@ -5,6 +5,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parents[2]
 
 class Settings(BaseSettings):
+    """Contains all useful settings for the app"""
     model_config = SettingsConfigDict(env_prefix="AUTOCOMPLETE_", env_file=".env")
     # App
     app_name: str = "Web Autocomplete Service"
@@ -21,4 +22,5 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
+    """Return Singleton Settings instance"""
     return Settings()

@@ -1,5 +1,34 @@
 from dataclasses import dataclass, field
 
+"""This module allow to store a dictionary into a Radix Trie (or Radix tree).
+
+A traditional Trie structure stores each word character as a node
+
+    Example:
+    Words: duck, ducky, duckling.
+
+    root
+    └── d
+        └── u
+            └── c
+                └── k *
+                    ├──l
+                    |  └──i
+                    |     └──n
+                    |        └──g *
+                    └── y *
+    * marks the end of a word
+
+A Radix Trie merge consecutive nodes with a single child and that do not end a word.
+
+    Example with a Radix trie:
+    root
+    └──duck*
+        └──ling*
+        └──y*
+    * marks the end of a word
+"""
+
 @dataclass(slots=True)
 class RadixNode:
     label: str = ""
@@ -7,8 +36,13 @@ class RadixNode:
     is_leaf: bool = False
     is_sorted: bool = True
 
-
 class RadixTrie: 
+    """Store words in a Radix Trie for prefix search.
+    
+    Node's children are keyed with the first character of the child's label.
+    The unsorted nodes are sorted when the search function is called.
+    """
+
     def __init__(self):
         self.root = RadixNode()
         self._unsorted_nodes: list[RadixNode] = []
@@ -21,13 +55,17 @@ class RadixTrie:
         parent_node.children[key] = child_node
 
     def insert(self, word: str) -> None:
-        """Insert a word into the Trie"""
+        """Insert a word into the RadixTrie
+        
+        Add nodes to the unsorted nodes list when needed.
+        """
         
         node = self.root
         rest = word
 
         while True:
             if not rest:
+                # Word stops at a node
                 node.is_leaf = True
                 return
             
@@ -36,14 +74,17 @@ class RadixTrie:
                 self._add_child(node, RadixNode(is_leaf = True, label=rest))
                 return
 
+            # Child starting with same letter as rest exists
             i = 0
             max_common_length = min(len(child.label), len(rest))
 
+            # Identifying where the rest and the child label diverge
             while i < max_common_length and child.label[i] == rest[i]:
                 i += 1
-            
+
             if i < len(child.label):
-                # New node creation: "abcdef" -> "abc" + "def"
+                # Common characters stopped in the middle of the child label
+                # New mid node creation : "abcdef" -> "abc" + "def"
                 mid = RadixNode(label=child.label[:i])
                 child.label = child.label[i:]
                 mid.children[child.label[0]] = child
@@ -52,7 +93,10 @@ class RadixTrie:
             node, rest = child, rest[i:]
     
     def search(self, prefix: str, limit: int) -> list[str]:
-        """Search the closest terms to the given prefix"""
+        """Search up to `limit` first alphabetically sorted terms to the given `prefix`
+        
+        Returns an empty array if nothing matches or if `limit` is not strictly positive.
+        """
         if limit <= 0:
             return []
 
@@ -63,8 +107,7 @@ class RadixTrie:
         # Looking for the prefix first
         rest = prefix
         node = self.root
-        path = ""
-        suggestions = []  
+        path = "" # to track where we are in the Trie
         while rest:
             child = node.children.get(rest[0])
             if child is None:
@@ -84,9 +127,6 @@ class RadixTrie:
         return suggestions
 
     def _retrieve(self, node: RadixNode, path: str, limit: int, suggestions: list[str]) -> None:
-        """
-        Function used recursively to find first terms starting from a node
-        """
         if node.is_leaf:
             suggestions.append(path)
         
