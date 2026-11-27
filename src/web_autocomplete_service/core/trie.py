@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 
 """This module allow to store a dictionary into a Radix Trie (or Radix tree).
 
-A traditional Trie structure stores each word character as a node
+A traditional Trie structure stores each character as a node
 
     Example:
     Words: duck, ducky, duckling.
@@ -19,7 +19,7 @@ A traditional Trie structure stores each word character as a node
                     └── y *
     * marks the end of a word
 
-A Radix Trie merge consecutive nodes with a single child and that do not end a word.
+A Radix Trie merge consecutive nodes with a single child that do not end a word.
 
     Example with a Radix trie:
     root

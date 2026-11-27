@@ -1,3 +1,5 @@
+import logging
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
@@ -13,6 +15,11 @@ async def lifespan(app: FastAPI):
     """Called at start-up"""
     app.state.trie = load_trie(RadixTrie(), settings.input_dictionary_path)
     yield # let app run
+
+logging.basicConfig(
+    level=settings.log_level,
+    format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
+)
 
 app = FastAPI(
     title=settings.app_name,

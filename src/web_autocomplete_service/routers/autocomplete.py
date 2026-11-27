@@ -1,3 +1,4 @@
+import logging
 from fastapi import APIRouter, Depends, Query
 from typing import Annotated
 
@@ -9,6 +10,7 @@ from web_autocomplete_service.services.autocomplete import get_autocomplete_term
 
 router = APIRouter(tags=["autocomplete"])
 settings = get_settings()
+logger = logging.getLogger(__name__)
 
 @router.get("/autocomplete", response_model=AutocompleteResponse)
 async def autocomplete(
@@ -19,4 +21,6 @@ async def autocomplete(
                 )
     ):
     """Return the terms that start with `query`"""
-    return get_autocomplete_terms(trie, query)
+    results = get_autocomplete_terms(trie, query)
+    logger.debug("Query=%r, results count = %d", query, len(results))
+    return results

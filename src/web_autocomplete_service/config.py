@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="AUTOCOMPLETE_", env_file=".env")
     # App
     app_name: str = "Web Autocomplete Service"
-    debug: bool = False
+    log_level: str = "INFO"
 
     # Data - default path
     input_dictionary_path: Path = BASE_DIR / "data" / "dictionary.txt"
