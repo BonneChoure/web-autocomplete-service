@@ -1,9 +1,9 @@
 import pytest
 
-from web_autocomplete_service.core.trie import Trie
+from web_autocomplete_service.core.trie import RadixTrie
 
 def build(words: list[str]):
-    trie = Trie()
+    trie = RadixTrie()
     for word in words:
         trie.insert(word)
     return trie

@@ -5,7 +5,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 from web_autocomplete_service.config import get_settings
-from web_autocomplete_service.core.trie import Trie
+from web_autocomplete_service.core.trie import RadixTrie
 from web_autocomplete_service.main import app
 
 WORDS = ["cryptanalysis", "cryptographers", "cryptographic algorithm", "cryptography", "cryptomancer"]
@@ -13,8 +13,8 @@ WORDS = ["cryptanalysis", "cryptographers", "cryptographic algorithm", "cryptogr
 settings = get_settings()
 
 @pytest.fixture
-def trie() -> Trie:
-    trie = Trie()
+def trie() -> RadixTrie:
+    trie = RadixTrie()
     for w in WORDS:
         trie.insert(w)
     return trie
