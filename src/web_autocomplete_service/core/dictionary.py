@@ -18,6 +18,7 @@ def load_trie(trie: RadixTrie, input_path:Path) -> None:
             for line in input_file:
                 word = normalize(line)
                 trie.insert(word)
+        trie.sort()
     except FileNotFoundError:
         logger.error("Dictionary file not found at %s", input_path)
         raise

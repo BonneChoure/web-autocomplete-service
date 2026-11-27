@@ -91,7 +91,16 @@ class RadixTrie:
                 node.children[rest[0]] = mid
                 child = mid
             node, rest = child, rest[i:]
-    
+
+    def _retrieve(self, node: RadixNode, path: str, limit: int, suggestions: list[str]) -> None:
+        if node.is_leaf:
+            suggestions.append(path)
+        
+        for child in node.children.values():
+            if len(suggestions) >= limit:
+                return
+            self._retrieve(child, path + child.label, limit, suggestions)
+
     def search(self, prefix: str, limit: int) -> list[str]:
         """Search up to `limit` first alphabetically sorted terms to the given `prefix`
         
@@ -102,7 +111,7 @@ class RadixTrie:
 
         # Sort the Trie if needed
         if self._unsorted_nodes:
-            self._sort()
+            self.sort()
 
         # Looking for the prefix first
         rest = prefix
@@ -126,16 +135,7 @@ class RadixTrie:
         self._retrieve(node, path, limit, suggestions)
         return suggestions
 
-    def _retrieve(self, node: RadixNode, path: str, limit: int, suggestions: list[str]) -> None:
-        if node.is_leaf:
-            suggestions.append(path)
-        
-        for child in node.children.values():
-            if len(suggestions) >= limit:
-                return
-            self._retrieve(child, path + child.label, limit, suggestions)
-
-    def _sort(self):
+    def sort(self):
         for node in self._unsorted_nodes:
             node.children = dict(sorted(node.children.items()))
             node.is_sorted = True
