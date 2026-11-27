@@ -1,6 +1,8 @@
 import pytest
+from fastapi.testclient import TestClient
 
 from web_autocomplete_service.config import get_settings
+from web_autocomplete_service.main import app
 
 settings=get_settings()
 
@@ -29,3 +31,15 @@ def test_too_long_query_returns_422(client):
 @pytest.mark.parametrize("prefix", ["😄", "有效", "<", "!", "\x00", "\u00a3"])
 def test_special_characters_does_not_return_500(client, prefix):
     assert client.get("/autocomplete", params={"query": prefix}).status_code in (200, 422)
+
+def test_unexpected_error_returns_generic_500(monkeypatch):
+    def raise_exception(*args, **kwargs):
+        raise Exception("Test Exception")
+    
+    monkeypatch.setattr("web_autocomplete_service.routers.autocomplete.get_autocomplete_terms", raise_exception)
+
+    client = TestClient(app, raise_server_exceptions=False)
+    response = client.get("/autocomplete", params={"query": "crypt"})
+
+    assert response.status_code == 500
+    assert response.json() == {"detail": "Internal Server Error"}

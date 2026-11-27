@@ -4,11 +4,13 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from web_autocomplete_service.config import get_settings
+from web_autocomplete_service.exception_handlers import add_exception_handlers
 from web_autocomplete_service.routers import autocomplete
 from web_autocomplete_service.core.dictionary import load_trie
 from web_autocomplete_service.core.trie import RadixTrie
 
 settings = get_settings()
+logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -28,3 +30,4 @@ app = FastAPI(
 )
 
 app.include_router(autocomplete.router)
+add_exception_handlers(app)
