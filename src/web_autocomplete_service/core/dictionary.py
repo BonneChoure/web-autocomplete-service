@@ -6,7 +6,7 @@ from web_autocomplete_service.core.normalization import normalize
 
 logger = logging.getLogger(__name__)
 
-def load_trie(trie: RadixTrie, input_path:Path) -> None:
+def load_trie(trie: RadixTrie, input_path:Path) -> RadixTrie:
     """Build a RadixTrie `trie` from a given text file path `input_path`
     
     Expects input file to contain one word per line. 
