@@ -259,6 +259,7 @@ ahead
 ahoy
 aid
 aide
+aided
 aides
 aiding
 aids
@@ -1783,9 +1784,8 @@ cadet
 cadillac
 cadmium
 cadogan
-caesar
 cafru
-caf�
+café
 cage
 cahoots
 cailin
@@ -3238,7 +3238,8 @@ cylinder
 cymbal
 cytoplasm
 cytoplast
-c�sar
+c¾sar
+cæsar
 daario
 dab
 dad
@@ -4078,6 +4079,7 @@ domestic
 domestic-elf
 dominion
 dominoes
+don't
 donated
 donation
 donator
@@ -4089,7 +4091,6 @@ donnel
 donor
 dons
 donut
-don�t
 doodle
 dooku
 doom
@@ -4784,7 +4785,7 @@ escorts
 eskimo
 esophagus
 espa
-espa�a
+españa
 especially
 espionage
 espresso
@@ -5242,7 +5243,7 @@ fever
 feverish
 few
 fiance
-fianc�e
+fiancée
 fiber
 fibre
 fiction
@@ -6642,6 +6643,7 @@ holding
 holdo
 holds
 hole
+holey
 holidays
 hollard
 hollers
@@ -6971,7 +6973,7 @@ imposed
 imposing
 impossible
 imposter
-impostorlimited
+impostor
 impotence
 impotency
 impotent
@@ -7000,6 +7002,7 @@ impulsive
 impulsiveness
 impure
 impurity
+imwe
 inability
 inaction
 inadvertently
@@ -7880,7 +7883,6 @@ light-skinned
 lighting
 lightmaker
 lightning
-lightning,torturing
 lightning-shaped
 lights
 lightsaber
@@ -8031,7 +8033,6 @@ lovegood
 lovely
 lover
 loves
-lovesaided
 lovey
 loving
 low
@@ -8107,7 +8108,6 @@ lyrically
 lyricism
 lyricist
 lyrics
-m?ole
 macarena
 macaroni
 macaw
@@ -9025,7 +9025,6 @@ now-former
 now-frozen
 nower
 nowhere
-nsync
 nuclear
 nuclei
 nucleus
@@ -9518,7 +9517,7 @@ padding
 paddle
 paddling
 padlock
-padm�
+padmé
 pads
 pagan
 pageantry
@@ -9640,7 +9639,6 @@ partition
 partly
 partly-open
 partner
-partneraided
 partners
 partridge
 parts
@@ -15160,7 +15158,7 @@ vance
 vander
 vandor
 vane
-vane�
+vaneé
 vanilla
 vanish
 vanished
@@ -15366,7 +15364,6 @@ vomits
 voq
 vortex
 vos
-vos�
 vote
 voted
 voter
@@ -15492,6 +15489,7 @@ waxes
 way
 waymar
 ways
+we're
 weak
 weakened
 weakly
@@ -15535,7 +15533,6 @@ west
 western
 westeros
 westerosi
-we�re
 whacking
 whacks
 whacky
