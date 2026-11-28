@@ -108,7 +108,7 @@ The core logic of the Radix Trie is located in `src\web_autocomplete_service\cor
 
 Each Tree node has 4 attributes :
 * `label` : a string representing the node (e.g. "ling" from above example)  
-* `is_leaf` : a boolean stating if it marks the end of a word
+* `is_end_of_word` : a boolean stating if it marks the end of a word
 * `is_sorted` : a boolean stating if the node's children are alphabetically sorted
 * `children` : a dictionary containing all children nodes. The children are keyed with the first letter of their label. This allow to quickly retrieve the correct child to follow when searching for a prefix, as every children's label starts with a different letter.
 

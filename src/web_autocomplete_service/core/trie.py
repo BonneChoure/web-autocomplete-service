@@ -33,7 +33,7 @@ A Radix Trie merge consecutive nodes with a single child that do not end a word.
 class RadixNode:
     label: str = ""
     children: dict[str, "RadixNode"] = field(default_factory=dict)
-    is_leaf: bool = False
+    is_end_of_word: bool = False
     is_sorted: bool = True
 
 class RadixTrie: 
@@ -66,12 +66,12 @@ class RadixTrie:
         while True:
             if not rest:
                 # Word stops at a node
-                node.is_leaf = True
+                node.is_end_of_word = True
                 return
             
             child = node.children.get(rest[0])
             if child is None:
-                self._add_child(node, RadixNode(is_leaf = True, label=rest))
+                self._add_child(node, RadixNode(is_end_of_word = True, label=rest))
                 return
 
             # Child starting with same letter as rest exists
@@ -93,7 +93,7 @@ class RadixTrie:
             node, rest = child, rest[i:]
 
     def _retrieve(self, node: RadixNode, path: str, limit: int, suggestions: list[str]) -> None:
-        if node.is_leaf:
+        if node.is_end_of_word:
             suggestions.append(path)
         
         for child in node.children.values():
