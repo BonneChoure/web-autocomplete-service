@@ -38,8 +38,8 @@ def test_unexpected_error_returns_generic_500(monkeypatch):
     
     monkeypatch.setattr("web_autocomplete_service.routers.autocomplete.get_autocomplete_terms", raise_exception)
 
-    client = TestClient(app, raise_server_exceptions=False)
-    response = client.get("/autocomplete", params={"query": "crypt"})
+    with TestClient(app, raise_server_exceptions=False) as client:
+        response = client.get("/autocomplete", params={"query": "crypt"})
 
     assert response.status_code == 500
     assert response.json() == {"detail": "Internal Server Error"}

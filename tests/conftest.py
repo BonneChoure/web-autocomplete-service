@@ -29,5 +29,5 @@ def dictionary_file(tmp_path):
 @pytest.fixture
 def client(monkeypatch, dictionary_file):
     monkeypatch.setattr(settings, "input_dictionary_path", dictionary_file)
-    with TestClient(app) as c:
-        yield c
+    with TestClient(app) as client:
+        yield client
