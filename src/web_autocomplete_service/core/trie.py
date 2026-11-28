@@ -49,7 +49,12 @@ class RadixTrie:
 
     def _add_child(self, parent_node: RadixNode, child_node: RadixNode):
         key = child_node.label[0]
-        if parent_node.is_sorted and parent_node.children and key < next(reversed(parent_node.children)):
+        if (
+                parent_node.is_sorted 
+                and parent_node.children
+                and key < next(reversed(parent_node.children)) 
+                and not parent_node.children.get(key)
+            ):
             parent_node.is_sorted = False
             self._unsorted_nodes.append(parent_node)
         parent_node.children[key] = child_node
@@ -87,8 +92,8 @@ class RadixTrie:
                 # New mid node creation : "abcdef" -> "abc" + "def"
                 mid = RadixNode(label=child.label[:i])
                 child.label = child.label[i:]
-                mid.children[child.label[0]] = child
-                node.children[rest[0]] = mid
+                self._add_child(node, mid)
+                self._add_child(mid, child)
                 child = mid
             node, rest = child, rest[i:]
 
