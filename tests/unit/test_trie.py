@@ -51,8 +51,34 @@ def test_node_are_splitted_correctly():
     trie = build(["duckling", "ducky", "duck"])
     assert trie.search("duck", limit=4) == ["duck", "duckling", "ducky"]
 
-def test_node_count_is_optimized(trie):
-    assert count_node(trie.root, [0])[0] == 8
+def test_node_count_is_optimized():
+    """Traditional Trie :
+        Words: duckling, ducky, duck
+
+        root
+        └── d
+            └── u
+                └── c
+                    └── k *
+                        ├──l
+                        |  └──i
+                        |     └──n
+                        |        └──g *
+                        └── y *
+        * marks the end of a word
+        Node count: 9 + root
+
+    Radix Trie  :
+    Words: duckling, ducky, duck
+        root
+        └──duck*
+            └──ling*
+            └──y*
+        * marks the end of a word
+        Node count: 3 + root
+    """
+    trie = build(["duckling", "ducky", "duck"])
+    assert count_node(trie.root, [0])[0] == 3
 
 
 @pytest.mark.parametrize("prefix", ["😄", "有效", "<", "!", "\x00", "\u00a3"])
