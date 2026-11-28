@@ -4,8 +4,19 @@ from web_autocomplete_service.config import get_settings
 settings = get_settings()
 
 def test_query_is_normalized(trie):
-    assert get_autocomplete_terms(trie, "CRYPT", limit=4) == get_autocomplete_terms(trie, "crypt", limit=4)
-
+    assert get_autocomplete_terms(trie, "CRYPT", limit=4) == [
+        "cryptanalysis",
+        "cryptographers",
+        "cryptographic algorithm",
+        "cryptography"
+    ]
+    assert get_autocomplete_terms(trie, "crypt", limit=4) == [
+        "cryptanalysis",
+        "cryptographers",
+        "cryptographic algorithm",
+        "cryptography"
+    ]
+    
 def test_results_are_limited(trie):
     assert len(get_autocomplete_terms(trie, "crypt", limit=3)) == 3
 
